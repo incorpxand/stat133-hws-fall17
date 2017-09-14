@@ -1,0 +1,44 @@
+---
+title: "Warmup 2"
+author: "Xander Paul"
+date: "September 14, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+load("nba2017-salary-points.RData")
+ls()
+```
+```{r}
+class(salary)
+class(team)
+length(team)
+typeof(team)
+```
+```{r}
+summary(points)
+mean(points)
+sd(points)
+min(points)
+max(points)
+median(points)
+mode(points)
+range(points)
+hist(points)
+boxplot(points)
+hist(points)
+```
+
+```{r}
+table(team)
+props <- prop.table(table(team))
+props
+barplot(props)
+summary(props)
+```
+
