@@ -29,19 +29,30 @@ plot(points, salary_mils, pch = 12, col = 2, cex = 2, xlab = 'Points', ylab = 'S
 ```
 ```{r}
 n <- length(points)
+n
 mean_points <- 1 / n * sum(points)
+mean_points
 mean_salary <- 1 / n * sum(salary_mils)
+mean_salary
 var_points <- (1 / (n - 1)) * sum((points - mean_points) ^ 2)
+var_points
 var_salary <- (1 / (n - 1)) * sum((salary_mils - mean_salary) ^ 2)
+var_salary
 sd_points <- sqrt(var_points)
+sd_points
 sd_salary <- sqrt(var_salary)
+sd_salary
 cov_points_sal <- (1 / (n - 1)) * sum((points - mean_points) * (salary_mils - mean_salary))
+cov_points_sal
 cor_points_sal <- cov_points_sal / (sd_points * sd_salary)
+cor_points_sal
 ```
 
 ```{r}
 b_one <- cor_points_sal * sd_salary / sd_points
+b_one
 b_zero <- mean_salary - b_one * mean_points
+b_zero
 y_hat <- b_zero + b_one * points
 summary(y_hat)
 ```
@@ -60,8 +71,11 @@ text(c(2000, 2200), c(19.51, 22), labels = c("Regression Line", "Lowess"), pos =
 predicted <- 1.51 + 0.009 * points
 residuals <- salary_mils - predicted
 rss <- sum((residuals) ^ 2)
+rss
 tss <- sum((salary_mils - mean_salary) ^ 2)
+tss
 r_squared <- 1 - (rss / tss)
+r_squared
 ```
 
 ```{r}

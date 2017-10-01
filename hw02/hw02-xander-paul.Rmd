@@ -1,0 +1,98 @@
+---
+title: "HW 02 - Basics of Data Frames"
+author: "Xander Paul"
+due date: 'October 2, 2017'
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+chooseCRANmirror(ind = 50)
+require(readr)
+install.packages("readr")
+library(readr)
+install.packages('ggplot2')
+library(ggplot2)
+install.packages('dplyr')
+library(dplyr)
+```
+
+```{r}
+github <- "https://github.com/ucb-stat133/stat133-fall-2017/raw/master/"
+file <- "data/nba2017-player-statistics.csv"
+csv <- paste0(github, file)
+download.file(url = csv, destfile = 'nba2017-player-statistics.csv')
+```
+
+```{r}
+base <- read.csv("nba2017-player-statistics.csv", header = TRUE, colClasses = c('character', 'character', 'factor', 'character', 'double', rep('integer', 19) ))
+str(base)
+```
+```{r}
+readr <- read_csv("nba2017-player-statistics.csv", col_types = list(Player = 'c', Team = 'c', Position = col_factor(c('C', 'PF', 'PG', 'SF', 'SG')), Experience = 'c', Salary = 'n', Rank = 'i', Age = 'i', GP = 'i', GS = 'i', MIN = 'i', FGM = 'i', FGA = 'i', Points3 = 'i', Points3_atts = 'i', Points2 = 'i', Points2_atts = 'i', FTM = 'i', FTA = 'i', OREB = 'i', DREB = 'i', AST = 'i', STL = 'i', BLK = 'i', TO = 'i'))
+str(readr)
+```
+```{r}
+experience <- replace(base$experience, base$experience=="R", 0)
+experience <- as.integer(base$experience)
+experience
+```
+```{r}
+base$Experience[base$Experience=='R'] <- 0
+readr$Experience[readr$Experience=='R'] <- 0
+base$Experience <- as.integer(base$Experience)
+readr$Experience <- as.integer(readr$Experience)
+```
+
+```{r}
+Missed_FG <- base$FGA - base$FGM
+base <- mutate(base, Missed_FG = Missed_FG)
+Missed_FT <- base$FTA - base$FTM
+base <- mutate(base, Missed_FT = Missed_FT)
+pts <- 2 * base$Points2 + 3 * base$Points3 + base$FTM
+base <- mutate(base, PTS = pts)
+reb <- base$OREB + base$DREB
+base <- mutate(base, REB = reb)
+mpg <- base$MIN / base$GP
+base <- mutate(base, MPG = mpg)
+eff <- (pts + reb + base$AST + base$STL + base$BLK - Missed_FG - Missed_FT - base$TO) / base$GP
+base <- mutate(base, EFF = eff)
+summary(eff)
+ggplot(data = base, aes(x = EFF)) + geom_histogram(binwidth = 5)
+```
+
+```{r}
+base_some <- select(base, Player, Team, Salary, EFF)
+base_some <- arrange(base_some, desc(EFF))
+slice(base_some, 1:10)
+```
+```{r}
+low_guys <- filter(base, EFF < 0)
+select(low_guys, Player)
+```
+```{r}
+cor(eff, base[c('PTS', 'REB', 'AST', 'STL', 'BLK', 'Missed_FG', 'Missed_FT', 'TO')])
+cor_vector <- c(0.8588644, 0.7634501, 0.6957286, 0.6689232, 0.5679571, -0.7271456, -0.7722477, -0.8003289)
+barplot(cor_vector, main = "Correlations between Player Stats and EFF", names.arg = c('PTS', 'REB', 'STL', 'AST', 'BLK', 'Missed_FT', 'Missed_FG', 'TO'), cex.names = 0.6)
+```
+
+```{r}
+ggplot(data = base, aes(x = EFF, y = Salary)) + geom_point() + geom_smooth(method = 'loess')
+cor(eff, base[c('Salary')])
+```
+```{r}
+players2 <- filter(base, MPG > 20)
+ggplot(data = players2, aes(x = EFF, y = Salary)) + geom_point() + geom_smooth(method = 'loess')
+cor(players2[c('EFF')], players2[c('Salary')])
+```
+Between more established players, EFF is not as strong a predictor of salary. That is, EFF is more important for determining the salary of a rookie.
+
+# Comments
+
+Importing the csv file was difficult and required a lot of internet searching. Downloading the packages and installing them proved to be a headache as well. 
+
+I looked up many different R guides on the internet to help me with this assignment. The homework took me about 3 hours to complete. The most time consuming part was ensuring that the packages installed correctly, and this was highly frustrating. 
+
