@@ -76,7 +76,7 @@ select(low_guys, Player)
 ```{r}
 cor(eff, base[c('PTS', 'REB', 'AST', 'STL', 'BLK', 'Missed_FG', 'Missed_FT', 'TO')])
 cor_vector <- c(0.8588644, 0.7634501, 0.6957286, 0.6689232, 0.5679571, -0.7271456, -0.7722477, -0.8003289)
-barplot(cor_vector, main = "Correlations between Player Stats and EFF", names.arg = c('PTS', 'REB', 'STL', 'AST', 'BLK', 'Missed_FT', 'Missed_FG', 'TO'), cex.names = 0.6)
+barplot(cor_vector, main = "Correlations between Player Stats and EFF", names.arg = c('PTS', 'REB', 'STL', 'AST', 'BLK', 'Missed_FT', 'Missed_FG', 'TO'), cex.names = 0.6, abline(a = 0, b = 0), col = ifelse(cor_vector > 0, 'gray', 'red'))
 ```
 
 ```{r}
