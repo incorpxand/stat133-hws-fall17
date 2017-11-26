@@ -1,0 +1,31 @@
+Remove missing elements: ....
+Find the minimum element: ...[1] "non-numeric argument"
+.
+Find the maximum element: ...[1] "non-numeric argument"
+.
+Find the range of the vector: ...[1] "non-numeric argument"
+.
+Find the tenth percentile element of the vector: ...[1] "non-numeric argument"
+.
+Find the ninetieth percentile element of the vector: ...[1] "non-numeric argument"
+.
+Find the first quartile of the vector: ...[1] "non-numeric argument"
+.
+Find the third quartile of the vector: ...[1] "non-numeric argument"
+.
+Find the median value of the vector: ...[1] "non-numeric argument"
+.
+Find the average value of the vector: ...[1] "non-numeric argument"
+.
+Find the standard deviation of the vector: ...[1] "non-numeric argument"
+.
+Count the number of missing elements: ....
+Create a summary of test statistics: ....
+Prints statistics: ....
+Drops the lowest element: ....
+Rescales the vector into a range from 0 to 100: ....
+Scores the homework: ....
+Scores the quizzes: ....
+Scores a lab: .......
+
+DONE ================================================================================
