@@ -1,0 +1,87 @@
+---
+title: "Tester"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+remove_missing <- function(vector) {
+  vector <- vector[!is.na(vector)]
+  return(vector)
+}
+a <- c(4, 5, NA, 7)
+remove_missing(a)
+```
+
+```{r}
+b <- c(300, 254, 373)
+c <- c("Delicious", "Food")
+get_minimum(c)
+```
+
+```{r}
+get_maximum(c)
+```
+```{r}
+get_range(c)
+```
+```{r}
+get_percentile10(c)
+```
+```{r}
+get_percentile90(b)
+```
+
+```{r}
+get_median(c)
+```
+
+```{r}
+get_average(a, na.rm = TRUE)
+```
+
+```{r}
+get_stdev(b)
+sd(b)
+```
+
+```{r}
+
+get_quartile1(b)
+get_quartile3(b)
+```
+
+```{r}
+d <- c(4, NA, NA, 3, NA)
+count_missing(d)
+```
+
+```{r}
+summary_stats(a, na.rm = TRUE)
+```
+
+```{r}
+print_stats(a, na.rm = TRUE)
+```
+
+```{r}
+print_stats(a, na.rm = TRUE)
+```
+
+```{r}
+d <- c(400, 300, 200, 200)
+d <- replace(d, d == 400, 200)
+rescale100(d, xmin = 0, xmax = 500)
+e <- c(200, 200, 500)
+drop_lowest(e)
+score_homework(e, drop = TRUE)
+score_lab(12)
+```
+
+```{r}
+get_stdev(c(5, 10, 15, NA), na.rm = TRUE)
+```
+
